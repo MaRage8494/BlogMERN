@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema( //? Создание модели пользователя
+const PostSchema = new mongoose.Schema( //? Создание модели поста
   {
     fullName: {
       //? Заполнение полей
@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema( //? Создание модели пол
       type: String,
       required: true,
     },
-    avatarUrl: String, //? Можно и так если никакие параметры больше не нужны
+    avatarUrl: String, //*? Можно и так если никакие параметры больше не нужны
   },
   {
     timestamps: true, //? Добавляет поле с временем создания

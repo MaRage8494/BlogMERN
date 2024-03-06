@@ -2,25 +2,34 @@ import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema( //? Создание модели поста
   {
-    fullName: {
+    title: {
       //? Заполнение полей
       type: String, //? Тип поля
       required: true, //? Обязательность его
     },
-    email: {
+    text: {
       type: String,
       required: true,
-      unique: true, //? Указывает на уникальность для каждого пользователя
+      unique: true, //? Указывает на уникальность для каждого текста
     },
-    passwordHash: {
-      type: String,
+    tags: {
+      type: Array,
+      default: [], //? Если ничего не передаётся, то выдать пустой массив
+    },
+    viewsCount: {
+      type: Number,
+      default: 0, //? Изначально 0 просмотров
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId, //? Тип айдишника в mongoDB
+      ref: "User", //? Связывание этой таблицы с другой (Ссылаться на пользователя и вытаскивать его по id)
       required: true,
     },
-    avatarUrl: String, //*? Можно и так если никакие параметры больше не нужны
+    imageUrl: String, //*? Можно и так если никакие параметры больше не нужны
   },
   {
     timestamps: true, //? Добавляет поле с временем создания
   }
 );
 
-export default mongoose.model("User", UserSchema); //? Экспорт модели
+export default mongoose.model("Post", PostSchema); //? Экспорт модели

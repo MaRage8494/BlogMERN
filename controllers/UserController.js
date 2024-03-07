@@ -1,16 +1,11 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { validationResult } from "express-validator";
+
 import UserModel from "../models/User.js";
 
 export const register = async (req, res) => {
   //? Функционал регистрации
   try {
-    const errors = validationResult(req); //? Если будут возникать ошибки при валидации, то они будут записываться в errors
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array()); //? Если же ошибки всё таки есть, то вернется ответ с ошибкой и статусом 400 (Bad request)
-    }
-
     const password = req.body.password; //? Получаем пароль с запроса
     const salt = await bcrypt.genSalt(10); //? Генерируем "соль" для шифрования
     const hash = await bcrypt.hash(password, salt); //? Шифруем полученный пароль сгенерированной солью

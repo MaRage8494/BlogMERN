@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import multer from "multer";
 import "dotenv/config.js";
+import cors from "cors";
 
 import {
   registerValidation,
@@ -37,6 +38,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }); //? Объявление хранилища
 
 app.use(express.json()); //? Делает так, чтобы express мог читать JSON файлы, которые ему отправляют
+app.use(cors());
 app.use("/uploads", express.static("uploads")); //? При обращение к /uploads express будет искать статические файлы в папке uploads
 
 app.post(
@@ -54,7 +56,7 @@ app.post(
 app.get("/auth/me", checkAuth, UserController.getMe); //? Запрос на выдачу данных пользователя, добавляем дополнительно проверку актуальности авторизации
 
 app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
-  //? Загрузка изображения
+  //? Загрузка изображения (Ищет в теле запроса поле image)
   res.json({
     url: `/uploads/${req.file.originalname}`,
   });

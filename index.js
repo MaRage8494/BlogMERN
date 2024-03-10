@@ -63,6 +63,7 @@ app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
 });
 
 app.get("/posts", PostController.getAll); //? Получение всех статей
+app.get("/tags", PostController.getLastTags); //? Получение 5 последних тэгов
 app.get("/posts/:id", PostController.getOne); //? Получение одной статьи
 app.post(
   "/posts",

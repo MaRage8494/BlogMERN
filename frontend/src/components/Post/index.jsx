@@ -54,11 +54,12 @@ export const Post = ({
             {isFullPost ? title : <a href={`/posts/${id}`}>{title}</a>}
           </h2>
           <ul className={styles.tags}>
-            {tags.map((name) => (
-              <li key={name}>
-                <a href={`/tag/${name}`}>#{name}</a>
-              </li>
-            ))}
+            {Array.isArray(tags) &&
+              tags.map((name) => (
+                <li key={name}>
+                  <a href={`/tag/${name}`}>#{name}</a>
+                </li>
+              ))}
           </ul>
           {children && <div className={styles.content}>{children}</div>}
           <ul className={styles.postDetails}>

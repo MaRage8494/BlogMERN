@@ -10,6 +10,9 @@ import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 
+import { useDispatch } from "react-redux";
+import { fetchRemovePost } from "../../redux/slices/posts";
+
 export const Post = ({
   id,
   title,
@@ -24,9 +27,24 @@ export const Post = ({
   isLoading,
   isEditable,
 }) => {
+  const dispatch = useDispatch();
   if (isLoading) {
     return <PostSkeleton />;
   }
+
+  const onClickRemove = () => {
+    if (window.confirm("Вы точно хотите удалить статью?")) {
+      dispatch(fetchRemovePost(id));
+    }
+  };
+
+  const renderImage = imageUrl && (
+    <img
+      className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
+      src={imageUrl}
+      alt={title}
+    />
+  );
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
@@ -36,15 +54,11 @@ export const Post = ({
             <EditIcon />
           </IconButton>
           <IconButton color="secondary">
-            <DeleteIcon />
+            <DeleteIcon onClick={onClickRemove} />
           </IconButton>
         </div>
       )}
-      <img
-        className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-        src={imageUrl}
-        alt={title}
-      />
+      {renderImage}
       <div className={styles.wrapper}>
         <UserInfo {...user} additionalText={createdAt} />
         <div className={styles.indention}>

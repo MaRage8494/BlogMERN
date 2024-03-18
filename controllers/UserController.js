@@ -14,7 +14,7 @@ export const register = async (req, res) => {
       //? Создаем новую модель пользователя
       email: req.body.email,
       fullName: req.body.fullName,
-      avatarUrl: req.body.avatarUrl,
+      avatarUrl: req.body.avatarUrl || "/uploads/default-avatar.png",
       passwordHash: hash,
     });
 

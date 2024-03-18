@@ -3,3 +3,5 @@
 /.env
 /frontend/node_modules/
 /frontend/package-lock.json
+uploads/*
+!uploads/default-avatar.png 

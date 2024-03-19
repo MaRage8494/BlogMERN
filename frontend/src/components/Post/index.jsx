@@ -12,6 +12,7 @@ import { PostSkeleton } from "./Skeleton";
 
 import { useDispatch } from "react-redux";
 import { fetchRemovePost } from "../../redux/slices/posts";
+import { Link } from "react-router-dom";
 
 export const Post = ({
   id,
@@ -50,9 +51,11 @@ export const Post = ({
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
         <div className={styles.editButtons}>
-          <IconButton color="primary">
-            <EditIcon />
-          </IconButton>
+          <Link to={`/posts/${id}/edit`}>
+            <IconButton color="primary">
+              <EditIcon />
+            </IconButton>
+          </Link>
           <IconButton color="secondary">
             <DeleteIcon onClick={onClickRemove} />
           </IconButton>
